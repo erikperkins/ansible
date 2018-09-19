@@ -1,0 +1,38 @@
+- hosts: main
+  remote_user: ubuntu
+  tasks:
+    - import_tasks: finch.yml
+    - import_tasks: nginx.yml
+    - import_tasks: rails.yml
+
+    - name: Pull Data Punnet repository
+      tags:
+        - pull-datapunnet
+        - pull-rails
+      git:
+        accept_hostkey: yes
+        dest: ~/datapunnet
+        repo: git@github.com:erikperkins/datapunnet
+
+    - name: Deploy Nginx configuration
+      tags:
+        - pull-nginx
+        - reset-nginx
+      synchronize:
+        src: '{{ inventory_dir }}/config/nginx'
+        dest: ~/
+        existing_only: false
+        private_key: ~/.ssh/id_rsa
+      notify: Restart Nginx
+
+    - name: Create Nginx volume
+      tags:
+        - pull-nginx
+      docker_volume:
+        name: public
+
+  handlers:
+    - name: Restart Nginx
+      docker_container:
+        name: nginx
+        restart: yes

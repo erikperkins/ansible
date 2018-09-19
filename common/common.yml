@@ -1,0 +1,14 @@
+- name: Test connection
+  tags: ping
+  ping:
+
+- name: Remove dangling Docker images
+  tags: clean-images
+  command: docker images -qf dangling=true | xargs docker rmi
+
+- name: SSH agent forwarding
+  local_action:
+    module: lineinfile
+    path: ~/.ssh/config
+    regexp: 'Host [\d]+\.[\d]+\.[\d]+\.[\d]+'
+    line: 'Host {{ inventory_hostname }}'

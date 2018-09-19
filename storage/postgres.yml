@@ -1,0 +1,28 @@
+- name: Pull Docker image for PostgreSQL
+  tags:
+    - pull-postgres
+    - pull-all
+  docker_image:
+    name: postgres
+    tag: 11
+
+- name: Start PostgreSQL container
+  tags:
+    - start-postgres
+    - start-all
+  docker_container:
+    name: postgres
+    image: postgres:11
+    volumes:
+      - postgres:/var/lib/postgresql/data/
+      - /home/ubuntu/postgres/docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d/
+    ports:
+      - 5432:5432
+
+- name: Stop PostgreSQL container
+  tags:
+    - stop-postgres
+    - stop-all
+  docker_container:
+    name: postgres
+    state: absent

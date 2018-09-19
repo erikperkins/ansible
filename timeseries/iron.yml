@@ -1,0 +1,26 @@
+- name: Pull Docker image for Iron app
+  tags:
+    - pull-iron
+    - pull-all
+  docker_image:
+    name: erikperkins/iron_app
+
+- name: Start Iron container
+  tags:
+    - start-iron
+    - start-all
+  docker_container:
+    name: iron
+    image: erikperkins/iron_app
+    command: /iron_app/target/release/iron_app
+    restart_policy: no
+    hostname: iron
+    ports: 8003:80
+
+- name: Stop Iron app container
+  tags:
+    - stop-iron
+    - stop-all
+  docker_container:
+    name: iron
+    state: absent
