@@ -55,7 +55,7 @@
     - name: Rotate Docker logs
       tags: install-docker
       copy:
-        src: docker/daemon.json
+        src: {{ inventory_dir }}/config/docker/daemon.json
         dest: /etc/docker/daemon.json
     - name: Restart Docker daemon
       tags:
