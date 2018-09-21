@@ -1,4 +1,0 @@
-- hosts: mnist
-  remote_user: ubuntu
-  tasks:
-    - import_tasks: flask.yml

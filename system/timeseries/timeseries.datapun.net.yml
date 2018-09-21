@@ -1,7 +1,0 @@
-- hosts: timeseries
-  remote_user: ubuntu
-  tasks:
-  - import_tasks: phoenix.yml
-  - import_tasks: iron.yml
-  - import_tasks: snap.yml
-  - import_tasks: golang.yml
