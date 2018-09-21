@@ -1,0 +1,52 @@
+- name: Pull Nginx image
+  tags:
+    - pull-system
+    - pull-nginx
+  docker_image:
+    name: nginx
+    tag: 1.11.6
+
+- name: Create Nginx volume
+  tags:
+    - pull-system
+    - pull-nginx
+  docker_volume:
+    name: public
+
+- name: Configure Nginx
+  tags:
+    - configure-system
+    - configure-nginx
+  synchronize:
+    src: '{{ inventory_dir }}/roles/nginx/files'
+    dest: ~/
+    existing_only: false
+    private_key: ~/.ssh/id_rsa
+  notify: Restart Nginx container
+
+- name: Start Nginx container
+  tags:
+    - start-system
+    - start-nginx
+  docker_container:
+    name: nginx
+    image: nginx:1.11.6
+    network_mode: host
+    hostname: nginx
+    ports:
+      - 80:80
+      - 443:443
+    restart_policy: on-failure
+    volumes:
+      - /home/ubuntu/nginx/conf.d/:/etc/nginx/conf.d/
+      - /home/ubuntu/nginx/nginx.production.conf:/etc/nginx/nginx.conf
+      - /home/ubuntu/nginx/html/:/etc/nginx/html/
+      - public:/var/www/public/
+
+- name: Stop Nginx container
+  tags:
+    - stop-system
+    - stop-nginx
+  docker_container:
+    name: nginx
+    state: absent

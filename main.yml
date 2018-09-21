@@ -1,0 +1,28 @@
+---
+- hosts: all
+  remote_user: ubuntu
+  roles:
+    - common
+
+- hosts: main
+  roles:
+    - finch
+    - nginx
+    - rails
+
+- hosts: mnist
+  roles:
+    - flask
+
+- hosts: storage
+  roles:
+    - postgres
+    - rabbitmq
+    - redis
+
+- hosts: timeseries
+  roles:
+    - iron
+    - golang
+    - phoenix
+    - snap

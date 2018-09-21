@@ -1,0 +1,6 @@
+- name: Restart PostgreSQL
+  tags:
+    - never
+  docker_container:
+    name: postgres
+    restart: yes

@@ -1,0 +1,26 @@
+- name: Pull RabbitMQ image
+  tags:
+    - pull-system
+    - pull-rabbitmq
+  docker_image:
+    name: rabbitmq
+    tag: 3.6.6-management
+
+- name: Start RabbitMQ container
+  tags:
+    - start-system
+    - start-rabbitmq
+  docker_container:
+    name: rabbitmq
+    image: rabbitmq:3.6.6-management
+    ports:
+      - 5672:5672
+      - 15672:15672
+
+- name: Stop RabbitMQ container
+  tags:
+    - stop-system
+    - stop-rabbitmq
+  docker_container:
+    name: rabbitmq
+    state: absent
