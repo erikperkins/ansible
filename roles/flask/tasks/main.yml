@@ -1,0 +1,25 @@
+- name: Pull Flask image
+    - pull-system
+    - pull-flask
+  docker_image:
+    name: erikperkins/flask_app
+
+- name: Start Flask container
+  tags:
+    - start-system
+    - start-flask
+  docker_container:
+    name: flask
+    image: erikperkins/flask_app
+    command: uwsgi --ini uwsgi.ini
+    restart_policy: on-failure
+    ports:
+      - 80:80
+
+- name: Stop Flask container
+  tags:
+    - stop-system
+    - stop-flask
+  docker_container:
+    name: flask
+    state: absent

@@ -1,0 +1,27 @@
+- name: Pull Finch image
+  tags:
+    - pull-system
+    - pull-finch
+  docker_image:
+    name: erikperkins/finch_app
+
+- name: Start Finch container
+  tags:
+    - start-system
+    - start-finch
+  docker_container:
+    name: finch
+    image: erikperkins/finch_app
+    hostname: finch
+    command: java -Xms16m -Xmx32m -jar out/artifacts/finch_app_jar/finch_app.jar
+    env:
+      FINCH_ENV: production
+    ports: 1025:80
+
+- name: Stop Finch container
+  tags:
+    - stop-system
+    - stop-finch
+  docker_container:
+    name: finch
+    state: absent

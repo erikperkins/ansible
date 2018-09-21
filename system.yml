@@ -1,0 +1,11 @@
+---
+- import_playbook: system/all/setup.yml
+- import_playbook: system/main/main.datapun.net.yml
+- import_playbook: system/mnist/mnist.datapun.net.yml
+- import_playbook: system/storage/storage.datapun.net.yml
+- import_playbook: system/timeseries/timeseries.datapun.net.yml
+
+- hosts: all
+  remote_user: ubuntu
+  tasks:
+    - import_tasks: common/common.yml

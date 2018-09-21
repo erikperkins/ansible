@@ -1,0 +1,25 @@
+- name: Pull Redis image
+  tags:
+    - pull-system
+    - pull-redis
+  docker_image:
+    name: redis
+    tag: 3.2.7
+
+- name: Start Redis container
+  tags:
+    - start-system
+    - start-redis
+  docker_container:
+    name: redis
+    image: redis:3.2.7
+    ports:
+      - 6379:6379
+
+- name: Stop Redis container
+  tags:
+    - stop-system
+    - stop-redis
+  docker_container:
+    name: redis
+    state: absent

@@ -22,5 +22,5 @@
     - stop-golang
     - stop-all
   docker_container:
-    name: go
+    name: golang
     state: absent

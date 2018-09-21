@@ -1,0 +1,37 @@
+- name: Pull Phoenix image
+  tags:
+    - pull-system
+    - pull-phoenix
+  docker_image:
+    name: erikperkins/phoenix_app
+
+- name: Start Phoenix container
+  tags:
+    - start-system
+    - start-phoenix
+  docker_container:
+    name: phoenix
+    image: erikperkins/phoenix_app
+    env:
+      MIX_ENV: prod
+      PHOENIX_SECRET_KEY_BASE: "{{ lookup('env', 'PHOENIX_SECRET_KEY_BASE') }}"
+      PHOENIX_USERNAME: "{{ lookup('env', 'PHOENIX_USERNAME') }}"
+      PHOENIX_PASSWORD: "{{ lookup('env', 'PHOENIX_PASSWORD') }}"
+      PHOENIX_DATABASE: "{{ lookup('env', 'PHOENIX_DATABASE') }}"
+      TWITTER_CONSUMER_KEY: "{{ lookup('env', 'TWITTER_CONSUMER_KEY') }}"
+      TWITTER_CONSUMER_SECRET: "{{ lookup('env', 'TWITTER_CONSUMER_SECRET') }}"
+      TWITTER_ACCESS_TOKEN: "{{ lookup('env', 'TWITTER_ACCESS_TOKEN') }}"
+      TWITTER_ACCESS_SECRET: "{{ lookup('env', 'TWITTER_ACCESS_SECRET') }}"
+      REDIS_HOST: storage.datapun.net
+      RABBITMQ_HOST: storage.datapun.net
+    restart_policy: on-failure
+    ports:
+      - 80:80
+
+- name: Stop phoenix app container
+  tags:
+    - stop-system
+    - stop-phoenix
+  docker_container:
+    name: phoenix
+    state: absent

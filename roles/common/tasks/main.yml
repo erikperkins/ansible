@@ -1,17 +1,29 @@
 - name: Test connection
-  tags: ping
+  tags:
+    - never
+    - ping
   ping:
 
-- name: Remove dangling Docker images
-  tags: clean-images
+- name: Remove dangling images
+  tags:
+    - clean
   command: docker images -qf dangling=true | xargs docker rmi
 
 - name: SSH agent forwarding
   tags:
     - never
-    - forward-ssh
+    - github
   local_action:
     module: lineinfile
     path: ~/.ssh/config
     regexp: 'Host [\d]+\.[\d]+\.[\d]+\.[\d]+'
     line: 'Host {{ inventory_hostname }}'
+
+- name: Pull Data Punnet repository
+  tags:
+    - never
+    - github
+  git:
+    accept_hostkey: yes
+    dest: ~/datapunnet
+    repo: git@github.com:erikperkins/datapunnet
