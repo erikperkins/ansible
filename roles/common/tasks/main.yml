@@ -4,11 +4,6 @@
     - ping
   ping:
 
-- name: Remove dangling images
-  tags:
-    - clean
-  command: docker images -qf dangling=true | xargs docker rmi
-
 - name: SSH agent forwarding
   tags:
     - never

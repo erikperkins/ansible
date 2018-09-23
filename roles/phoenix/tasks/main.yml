@@ -5,6 +5,14 @@
   docker_image:
     name: erikperkins/phoenix_app
 
+- name: Remove Phoenix image
+  tags:
+    - remove-system
+    - remove-phoenix
+  docker_image:
+    name: erikperkins/phoenix_app
+    state: absent
+
 - name: Start Phoenix container
   tags:
     - start-system
