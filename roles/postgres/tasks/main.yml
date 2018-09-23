@@ -13,16 +13,25 @@
   docker_volume:
     name: postgres
 
+- name: Remove PostgreSQL volume
+  tags:
+    - never
+    - clean-postgres
+  docker_volume:
+    name: postgres
+    state: absent
+
 - name: Configure PostgreSQL
   tags:
     - configure-system
     - configure-postgres
   synchronize:
-    src: '{{ inventory_dir }}/roles/postgres/files'
-    dest: ~/
-    existing_only: false
+    src: '{{ inventory_dir }}/roles/postgres/files/'
+    dest: ~/postgres
+    existing_only: no
+    recursive: yes
+    perms: yes
     private_key: ~/.ssh/id_rsa
-  notify: Restart PostgreSQL
 
 - name: Start PostgreSQL container
   tags:
@@ -31,9 +40,11 @@
   docker_container:
     name: postgres
     image: postgres:11
+    env:
+      POSTGRES_PASSWORD: "{{ lookup('env', 'POSTGRES_PASSWORD') }}"
     volumes:
+      - /home/ubuntu/postgres/docker-entrypoint-initdb.d/:/docker-entrypoint-initdb.d/
       - postgres:/var/lib/postgresql/data/
-      - /home/ubuntu/postgres/docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d/
     ports:
       - 5432:5432
 
