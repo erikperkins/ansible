@@ -5,6 +5,14 @@
   docker_image:
     name: erikperkins/phoenix_app
 
+- name: Remove Phoenix image
+  tags:
+    - remove-system
+    - remove-phoenix
+  docker_image:
+    name: erikperkins/phoenix_app
+    state: absent
+
 - name: Start Phoenix container
   tags:
     - start-system
@@ -28,7 +36,7 @@
       RABBITMQ_HOST: storage.datapun.net
     restart_policy: on-failure
     ports:
-      - 80:80
+      - 1024:80
 
 - name: Stop phoenix app container
   tags:
