@@ -54,4 +54,4 @@
     - stop-postgres
   docker_container:
     name: postgres
-    state: absent
+    state: stopped

@@ -1,0 +1,53 @@
+- name: Pull MongoDB image
+  tags:
+    - pull-system
+    - pull-mongo
+  docker_image:
+    name: mongo
+    tag: 4.1
+
+- name: Create MongoDB volume
+  tags:
+    - pull-system
+    - pull-mongo
+  docker_volume:
+    name: mongo
+
+- name: Remove MongoDB volume
+  tags:
+    - never
+    - clean-system
+    - clean-mongo
+  docker_volume:
+    name: mongo
+    state: absent
+
+- name: Remove MongoDB image
+  tags:
+    - remove-system
+    - remove-mongo
+  docker_image:
+    name: mongo
+    tag: 4.1
+    state: absent
+
+- name: Start MongoDB container
+  tags:
+    - start-system
+    - start-mongo
+  docker_container:
+    name: mongo
+    image: mongo:4.1
+    ports:
+      - 27017:27017
+    restart_policy: on-failure
+    volumes:
+      - mongo:/data/db
+
+- name: Stop MongoDB container
+  tags:
+    - stop-system
+    - stop-mongo
+  docker_container:
+    name: mongo
+    state: absent
