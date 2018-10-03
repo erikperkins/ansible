@@ -12,6 +12,8 @@
   docker_container:
     name: phoenix
     image: erikperkins/phoenix_app
+    entrypoint: /phoenix_app/assets.sh
+    command: mix phx.server
     env:
       MIX_ENV: prod
       PHOENIX_SECRET_KEY_BASE: "{{ lookup('env', 'PHOENIX_SECRET_KEY_BASE') }}"

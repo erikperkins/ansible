@@ -19,6 +19,7 @@
     - postgres
     - rabbitmq
     - redis
+    - mongo
 
 - hosts: timeseries
   roles:

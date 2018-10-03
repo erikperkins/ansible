@@ -1,6 +1,6 @@
 create user rails_app with password 'rails_app' superuser login;
-create user snap_app with password 'snap_app';
-create user phoenix_app with password 'phoenix_app';
+create user snap_app with password 'snap_app' createdb login;
+create user phoenix_app with password 'phoenix_app' createdb login;
 
 create database snap_app;
 alter database snap_app owner to snap_app;
