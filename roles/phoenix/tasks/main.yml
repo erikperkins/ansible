@@ -32,8 +32,6 @@
       TWITTER_CONSUMER_SECRET: "{{ lookup('env', 'TWITTER_CONSUMER_SECRET') }}"
       TWITTER_ACCESS_TOKEN: "{{ lookup('env', 'TWITTER_ACCESS_TOKEN') }}"
       TWITTER_ACCESS_SECRET: "{{ lookup('env', 'TWITTER_ACCESS_SECRET') }}"
-      REDIS_HOST: storage.datapun.net
-      RABBITMQ_HOST: storage.datapun.net
     restart_policy: on-failure
     ports:
       - 1024:80
