@@ -20,6 +20,7 @@
   docker_container:
     name: finch
     image: erikperkins/finch_app
+    memory_limit: 256MB
     restart_policy: on-failure
     hostname: finch
     env:
