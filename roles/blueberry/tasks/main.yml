@@ -1,0 +1,25 @@
+- name: Pull blueberry image
+    - pull-system
+    - pull-blueberry
+  docker_image:
+    name: erikperkins/blueberry
+
+- name: Start blueberry container
+  tags:
+    - start-system
+    - start-blueberry
+  docker_container:
+    name: blueberry
+    image: erikperkins/blueberry
+    command: uwsgi --ini uwsgi.ini
+    restart_policy: on-failure
+    ports:
+      - 80:80
+
+- name: Stop blueberry container
+  tags:
+    - stop-system
+    - stop-blueberry
+  docker_container:
+    name: blueberry
+    state: absent

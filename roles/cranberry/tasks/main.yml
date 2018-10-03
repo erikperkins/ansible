@@ -1,0 +1,26 @@
+- name: Pull cranberry image
+  tags:
+    - pull-system
+    - pull-cranberry
+  docker_image:
+    name: erikperkins/cranberry
+
+- name: Start cranberry container
+  tags:
+    - start-system
+    - start-cranberry
+  docker_container:
+    name: cranberry
+    image: erikperkins/cranberry
+    command: cranberryapp -p 80
+    restart_policy: on-failure
+    ports:
+      - 8001:80
+
+- name: Stop cranberry app container
+  tags:
+    - stop-system
+    - stop-cranberry
+  docker_container:
+    name: cranberry
+    state: absent

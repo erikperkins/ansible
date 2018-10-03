@@ -1,0 +1,26 @@
+- name: Pull gooseberry image
+  tags:
+    - pull-system
+    - pull-gooseberry
+  docker_image:
+    name: erikperkins/gooseberry
+
+- name: Start gooseberry container
+  tags:
+    - start-system
+    - start-gooseberry
+  docker_container:
+    name: gooseberry
+    image: erikperkins/gooseberry
+    command: /gooseberry_app/target/release/gooseberry_app
+    restart_policy: no
+    hostname: gooseberry
+    ports: 8003:80
+
+- name: Stop gooseberry app container
+  tags:
+    - stop-system
+    - stop-gooseberry
+  docker_container:
+    name: gooseberry
+    state: absent

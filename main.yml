@@ -6,13 +6,14 @@
 
 - hosts: main
   roles:
-    - finch
+    - bayberry
+    - cloudberry
+    - mulberry
     - nginx
-    - phoenix
 
 - hosts: mnist
   roles:
-    - flask
+    - blueberry
 
 - hosts: storage
   roles:
@@ -23,6 +24,5 @@
 
 - hosts: timeseries
   roles:
-    - iron
-    - golang
-    - snap
+    - cranberry
+    - gooseberry

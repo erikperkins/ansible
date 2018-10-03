@@ -1,0 +1,36 @@
+- name: Pull cloudberry image
+  tags:
+    - pull-system
+    - pull-cloudberry
+  docker_image:
+    name: erikperkins/cloudberry
+
+- name: Remove cloudberry image
+  tags:
+    - remove-system
+    - remove-cloudberry
+  docker_image:
+    name: erikperkins/cloudberry
+    state: absent
+
+- name: Start cloudberry container
+  tags:
+    - start-system
+    - start-cloudberry
+  docker_container:
+    name: cloudberry
+    image: erikperkins/cloudberry
+    memory_limit: 256MB
+    restart_policy: on-failure
+    hostname: cloudberry
+    env:
+      cloudberry_ENV: production
+    ports: 1025:80
+
+- name: Stop cloudberry container
+  tags:
+    - stop-system
+    - stop-cloudberry
+  docker_container:
+    name: cloudberry
+    state: absent

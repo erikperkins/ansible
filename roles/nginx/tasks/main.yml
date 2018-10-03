@@ -4,7 +4,7 @@
     - pull-nginx
   docker_image:
     name: nginx
-    tag: 1.11.6
+    tag: 1.15
 
 - name: Create Nginx volume
   tags:

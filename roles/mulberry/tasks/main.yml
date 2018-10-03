@@ -1,18 +1,18 @@
 - name: Pull Go image
   tags:
     - pull-system
-    - pull-golang
+    - pull-mulberry
   docker_image:
-    name: erikperkins/golang_app
+    name: erikperkins/mulberry
 
 - name: Start Go container
   tags:
     - start-system
-    - start-golang
+    - start-mulberry
   docker_container:
-    name: golang
-    image: erikperkins/golang_app
-    command: /golang_app/golang_app
+    name: mulberry
+    image: erikperkins/mulberry
+    command: /mulberry_app/mulberry_app
     restart_policy: on-failure
     ports:
       - 8002:80
@@ -20,7 +20,7 @@
 - name: Stop Go app container
   tags:
     - stop-system
-    - stop-golang
+    - stop-mulberry
   docker_container:
-    name: golang
+    name: mulberry
     state: absent

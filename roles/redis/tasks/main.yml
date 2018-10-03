@@ -4,7 +4,7 @@
     - pull-redis
   docker_image:
     name: redis
-    tag: 3.2.7
+    tag: 4.0
 
 - name: Create Redis volume
   tags:
@@ -27,7 +27,7 @@
     - start-redis
   docker_container:
     name: redis
-    image: redis:3.2.7
+    image: redis:latest
     command: redis-server --appendonly yes
     ports:
       - 6379:6379
