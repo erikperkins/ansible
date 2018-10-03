@@ -8,7 +8,7 @@
   roles:
     - finch
     - nginx
-    - rails
+    - phoenix
 
 - hosts: mnist
   roles:
@@ -16,14 +16,13 @@
 
 - hosts: storage
   roles:
+    - mongo
     - postgres
     - rabbitmq
     - redis
-    - mongo
 
 - hosts: timeseries
   roles:
     - iron
     - golang
-    - phoenix
     - snap

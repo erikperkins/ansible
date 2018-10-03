@@ -18,11 +18,10 @@
     - configure-system
     - configure-nginx
   synchronize:
-    src: '{{ inventory_dir }}/roles/nginx/files'
-    dest: ~/
+    src: '{{ inventory_dir }}/roles/nginx/files/'
+    dest: ~/nginx
     existing_only: false
     private_key: ~/.ssh/id_rsa
-  notify: Restart Nginx container
 
 - name: Start Nginx container
   tags:

@@ -6,6 +6,21 @@
     name: redis
     tag: 3.2.7
 
+- name: Create Redis volume
+  tags:
+    - pull-system
+    - pull-redis
+  docker_volume:
+    name: redis
+
+- name: Remove Redis volume
+  tags:
+    - never
+    - clean-redis
+  docker_volume:
+    name: redis
+    state: absent
+
 - name: Start Redis container
   tags:
     - start-system
@@ -13,8 +28,11 @@
   docker_container:
     name: redis
     image: redis:3.2.7
+    command: redis-server --appendonly yes
     ports:
       - 6379:6379
+    volumes:
+      - redis:/data
 
 - name: Stop Redis container
   tags:
