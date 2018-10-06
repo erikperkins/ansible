@@ -1,0 +1,45 @@
+- name: Pull bayberry image
+  tags:
+    - pull-system
+    - pull-bayberry
+  docker_image:
+    name: erikperkins/bayberry
+
+- name: Remove bayberry image
+  tags:
+    - remove-system
+    - remove-bayberry
+  docker_image:
+    name: erikperkins/bayberry
+    state: absent
+
+- name: Start bayberry container
+  tags:
+    - start-system
+    - start-bayberry
+  docker_container:
+    name: bayberry
+    image: erikperkins/bayberry
+    entrypoint: /bayberry/assets.sh
+    command: mix phx.server
+    env:
+      MIX_ENV: prod
+      BAYBERRY_SECRET_KEY_BASE: "{{ lookup('env', 'BAYBERRY_SECRET_KEY_BASE') }}"
+      BAYBERRY_USERNAME: "{{ lookup('env', 'BAYBERRY_USERNAME') }}"
+      BAYBERRY_PASSWORD: "{{ lookup('env', 'BAYBERRY_PASSWORD') }}"
+      BAYBERRY_DATABASE: "{{ lookup('env', 'BAYBERRY_DATABASE') }}"
+      TWITTER_CONSUMER_KEY: "{{ lookup('env', 'TWITTER_CONSUMER_KEY') }}"
+      TWITTER_CONSUMER_SECRET: "{{ lookup('env', 'TWITTER_CONSUMER_SECRET') }}"
+      TWITTER_ACCESS_TOKEN: "{{ lookup('env', 'TWITTER_ACCESS_TOKEN') }}"
+      TWITTER_ACCESS_SECRET: "{{ lookup('env', 'TWITTER_ACCESS_SECRET') }}"
+    restart_policy: on-failure
+    ports:
+      - 1024:80
+
+- name: Stop bayberry app container
+  tags:
+    - stop-system
+    - stop-bayberry
+  docker_container:
+    name: bayberry
+    state: absent
