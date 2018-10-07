@@ -20,11 +20,11 @@
   docker_container:
     name: cloudberry
     image: erikperkins/cloudberry
-    memory_limit: 256MB
+    memory: 256MB
     restart_policy: on-failure
     hostname: cloudberry
     env:
-      cloudberry_ENV: production
+      CLOUDBERRY_ENV: production
     ports: 1025:80
 
 - name: Stop cloudberry container
