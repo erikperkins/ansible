@@ -1,4 +1,5 @@
 - name: Pull blueberry image
+  tags:
     - pull-system
     - pull-blueberry
   docker_image:

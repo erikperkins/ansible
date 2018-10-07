@@ -12,10 +12,10 @@
   docker_container:
     name: cranberry
     image: erikperkins/cranberry
-    command: cranberryapp -p 80
+    command: .cabal-sandbox/bin/cranberry -p 80
     restart_policy: on-failure
     ports:
-      - 8001:80
+      - 80:80
 
 - name: Stop cranberry app container
   tags:
