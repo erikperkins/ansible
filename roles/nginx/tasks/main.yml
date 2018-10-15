@@ -10,8 +10,17 @@
   tags:
     - pull-system
     - pull-nginx
+    - persist-nginx
   docker_volume:
-    name: public
+    name: assets
+
+- name: Remove Nginx volume
+  tags:
+    - never
+    - clean-nginx
+  docker_volume:
+    name: assets
+    state: absent
 
 - name: Configure Nginx
   tags:
@@ -40,7 +49,7 @@
       - /home/ubuntu/nginx/conf.d/:/etc/nginx/conf.d/
       - /home/ubuntu/nginx/nginx.production.conf:/etc/nginx/nginx.conf
       - /home/ubuntu/nginx/html/:/etc/nginx/html/
-      - public:/var/www/public/
+      - assets:/var/www/assets/
 
 - name: Stop Nginx container
   tags:

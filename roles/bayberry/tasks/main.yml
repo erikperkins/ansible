@@ -33,6 +33,8 @@
       TWITTER_ACCESS_TOKEN: "{{ lookup('env', 'TWITTER_ACCESS_TOKEN') }}"
       TWITTER_ACCESS_SECRET: "{{ lookup('env', 'TWITTER_ACCESS_SECRET') }}"
     restart_policy: on-failure
+    volumes:
+      - assets:/bayberry/priv/static/
     ports:
       - 1024:80
 
