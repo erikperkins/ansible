@@ -8,8 +8,8 @@
 
 - name: Create Redis volume
   tags:
-    - pull-system
-    - pull-redis
+    - persist-system
+    - persist-redis
   docker_volume:
     name: redis
 
@@ -28,6 +28,7 @@
   docker_container:
     name: redis
     image: redis:latest
+    restart_policy: on-failure
     command: redis-server --appendonly yes
     ports:
       - 6379:6379

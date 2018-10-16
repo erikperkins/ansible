@@ -8,8 +8,8 @@
 
 - name: Create PostgreSQL volume
   tags:
-    - pull-system
-    - pull-postgres
+    - persist-system
+    - persist-postgres
   docker_volume:
     name: postgres
 
@@ -40,6 +40,7 @@
   docker_container:
     name: postgres
     image: postgres:11
+    restart_policy: on-failure
     env:
       POSTGRES_PASSWORD: "{{ postgres_password }}"
     volumes:
