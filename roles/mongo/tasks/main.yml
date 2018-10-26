@@ -38,6 +38,7 @@
     name: mongo
     image: mongo:4.1
     restart_policy: on-failure
+    memory: 128MB
     ports:
       - 27017:27017
     volumes:

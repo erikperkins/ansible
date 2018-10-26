@@ -28,6 +28,7 @@
   docker_container:
     name: redis
     image: redis:latest
+    memory: 128MB
     restart_policy: on-failure
     command: redis-server --appendonly yes
     ports:
