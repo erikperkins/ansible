@@ -18,7 +18,7 @@
   docker_container:
     name: bayberry
     image: erikperkins/bayberry
-    entrypoint: /bayberry/assets.sh
+    entrypoint: /bayberry/entrypoint.sh
     command: mix phx.server
     env:
       MIX_ENV: prod
