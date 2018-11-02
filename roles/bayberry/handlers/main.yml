@@ -1,19 +1,17 @@
-- name: Pull bayberry image
-  tags:
-    - pull-system
-    - pull-bayberry
-  docker_image:
-    name: erikperkins/bayberry
-
-- name: Remove bayberry image
-  tags:
-    - remove-system
-    - remove-bayberry
+- name: Remove bayberry image for reset
   docker_image:
     name: erikperkins/bayberry
     state: absent
+  listen: "remove bayberry image"
+  notify: "pull bayberry image"
 
-- name: Start bayberry container
+- name: Pull bayberry image for reset
+  docker_image:
+    name: erikperkins/bayberry
+  listen: "pull bayberry image"
+  notify: "start bayberry container"
+
+- name: Start bayberry container for reset
   tags:
     - start-system
     - start-bayberry
@@ -37,21 +35,4 @@
       - assets:/bayberry/priv/static/
     ports:
       - 1024:80
-
-- name: Stop bayberry app container
-  tags:
-    - stop-system
-    - stop-bayberry
-  docker_container:
-    name: bayberry
-    state: absent
-
-- name: Reset bayberry application
-  tags:
-    - never
-    - reset-system
-    - reset-bayberry
-  docker_container:
-    name: bayberry
-    state: absent
-  notify: "remove bayberry image"
+  listen: "start bayberry container"
