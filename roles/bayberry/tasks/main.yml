@@ -51,7 +51,6 @@
     - never
     - reset-system
     - reset-bayberry
-  docker_container:
-    name: bayberry
-    state: absent
-  notify: "remove bayberry image"
+  command: /bin/true
+  delegate_to: 127.0.0.1
+  notify: "push bayberry image"
