@@ -1,3 +1,16 @@
+- name: Push bayberry image for reset
+  command: docker push erikperkins/bayberry
+  delegate_to: 127.0.0.1
+  listen: "push bayberry image"
+  notify: "remove bayberry container"
+
+- name: Remove bayberry container for reset
+  docker_container:
+    name: bayberry
+    state: absent
+  listen: "remove bayberry container"
+  notify: "remove bayberry image"
+
 - name: Remove bayberry image for reset
   docker_image:
     name: erikperkins/bayberry
