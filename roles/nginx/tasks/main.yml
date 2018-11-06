@@ -26,30 +26,25 @@
   tags:
     - configure-system
     - configure-nginx
-  synchronize:
-    src: '{{ inventory_dir }}/roles/nginx/files/'
-    dest: ~/nginx
-    existing_only: false
-    private_key: ~/.ssh/id_rsa
+  command: /bin/true
+  delegate_to: 127.0.0.1
+  notify: "configure production nginx"
 
 - name: Start Nginx container
   tags:
     - start-system
     - start-nginx
-  docker_container:
-    name: nginx
-    image: nginx:1.11.6
-    network_mode: host
-    hostname: nginx
-    ports:
-      - 80:80
-      - 443:443
-    restart_policy: on-failure
-    volumes:
-      - /home/ubuntu/nginx/conf.d/:/etc/nginx/conf.d/
-      - /home/ubuntu/nginx/nginx.production.conf:/etc/nginx/nginx.conf
-      - /home/ubuntu/nginx/html/:/etc/nginx/html/
-      - assets:/var/www/assets/
+  command: /bin/true
+  delegate_to: 127.0.0.1
+  notify: "start production nginx"
+
+- name: Stop Nginx container
+  tags:
+    - stop-system
+    - stop-nginx
+  command: /bin/true
+  delegate_to: 127.0.0.1
+  notify: "stop production nginx"
 
 - name: Stop Nginx container
   tags:

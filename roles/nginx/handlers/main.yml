@@ -1,6 +1,37 @@
-- name: Restart Nginx container
+- name: Configure production Nginx
+  synchronize:
+    src: '{{ inventory_dir }}/roles/nginx/files/'
+    dest: ~/nginx
+    existing_only: false
+    private_key: ~/.ssh/id_rsa
+  listen: "configure production nginx"
+  notify: "start production nginx"
+
+- name: Start production Nginx
   tags:
-    - never
+    - start-system
+    - start-nginx
   docker_container:
     name: nginx
-    restart: yes
+    image: nginx:1.11.6
+    network_mode: host
+    hostname: nginx
+    ports:
+      - 80:80
+      - 443:443
+    restart_policy: on-failure
+    volumes:
+      - /home/ubuntu/nginx/conf.d/:/etc/nginx/conf.d/
+      - /home/ubuntu/nginx/nginx.production.conf:/etc/nginx/nginx.conf
+      - /home/ubuntu/nginx/html/:/etc/nginx/html/
+      - /home/ubuntu/nginx/dhparam-2048.pem:/etc/ssl/certs/dhparam-2048.pem
+      - /home/ubuntu/certbot/html/:/data/letsencrypt
+      - certbot-etc:/etc/letsencrypt/
+      - assets:/var/www/assets/
+  listen: "start production nginx"
+
+- name: Stop production Nginx
+  docker_container:
+    name: nginx
+    state: absent
+  listen: "stop production nginx"

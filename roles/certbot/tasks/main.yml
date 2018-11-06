@@ -1,0 +1,7 @@
+- name: Set up Certbot
+  tags:
+    - never
+    - setup-certbot
+  command: /bin/true
+  delegate_to: 127.0.0.1
+  notify: "remove certbot image"
