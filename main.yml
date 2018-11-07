@@ -10,6 +10,7 @@
     - cloudberry
     - mulberry
     - nginx
+    - certbot
 
 - hosts: mnist
   roles:
