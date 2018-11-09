@@ -28,6 +28,11 @@
       - /home/ubuntu/certbot/html/:/data/letsencrypt
       - certbot-etc:/etc/letsencrypt/
       - assets:/var/www/assets/
+    log_driver: awslogs
+    log_options:
+      awslogs-region: us-west-2
+      awslogs-group: datapunnet
+      awslogs-stream: nginx
   listen: "start production nginx"
 
 - name: Stop production Nginx

@@ -43,6 +43,11 @@
     restart_policy: on-failure
     volumes:
       - mongo:/data/db
+    log_driver: awslogs
+    log_options:
+      awslogs-region: us-west-2
+      awslogs-group: datapunnet
+      awslogs-stream: mongo
 
 - name: Stop MongoDB container
   tags:

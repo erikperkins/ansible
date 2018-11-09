@@ -40,27 +40,42 @@
     - name: Add Docker group
       tags:
         - install-docker
-        - add-docker-group
       group:
         name: docker
         state: present
     - name: Add user to Docker group
       tags:
         - install-docker
-        - add-docker-group
       user:
         name: ubuntu
         groups: docker
         state: present
-    - name: Rotate Docker logs
-      tags: install-docker
+    - name: Push AWS credentials
+      tags:
+        - install-docker
+        - configure-docker
+      synchronize:
+        src: '{{ inventory_dir }}/credentials/docker/'
+        dest: /etc/systemd/system/docker.service.d/
+        existing_only: false
+        private_key: ~/.ssh/id_rsa
+    - name: Update systemd
+      tags:
+        - install-docker
+        - configure-docker
+      systemd:
+        daemon_reload: yes
+    - name: Configure Docker
+      tags:
+        - install-docker
+        - configure-docker
       copy:
-        src: '{{ inventory_dir }}/config/docker/daemon.json'
+        src: '{{ inventory_dir }}/roles/common/files/docker/daemon.json'
         dest: /etc/docker/daemon.json
     - name: Restart Docker daemon
       tags:
         - install-docker
-        - add-docker-group
+        - configure-docker
       service:
         name: docker
         state: restarted

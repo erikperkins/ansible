@@ -16,6 +16,11 @@
     ports:
       - 5672:5672
       - 15672:15672
+    log_driver: awslogs
+    log_options:
+      awslogs-region: us-west-2
+      awslogs-group: datapunnet
+      awslogs-stream: rabbitmq
 
 - name: Stop RabbitMQ container
   tags:

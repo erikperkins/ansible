@@ -33,6 +33,11 @@
       - 6379:6379
     volumes:
       - redis:/data
+    log_driver: awslogs
+    log_options:
+      awslogs-region: us-west-2
+      awslogs-group: datapunnet
+      awslogs-stream: redis
 
 - name: Stop Redis container
   tags:

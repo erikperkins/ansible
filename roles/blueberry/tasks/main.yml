@@ -16,6 +16,11 @@
     restart_policy: on-failure
     ports:
       - 80:80
+    log_driver: awslogs
+    log_options:
+      awslogs-region: us-west-2
+      awslogs-group: datapunnet
+      awslogs-stream: blueberry
 
 - name: Stop blueberry container
   tags:
