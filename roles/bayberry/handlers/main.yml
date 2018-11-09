@@ -48,4 +48,9 @@
       - assets:/bayberry/priv/static/
     ports:
       - 1024:80
+    log_driver: awslogs
+    log_options:
+      awslogs-region: us-west-2
+      awslogs-group: datapunnet
+      awslogs-stream: bayberry
   listen: "start bayberry container"

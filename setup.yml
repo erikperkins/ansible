@@ -50,23 +50,32 @@
         name: ubuntu
         groups: docker
         state: present
-
-
-    - name: Install AWS agent
+    - name: Push AWS credentials
       tags:
         - install-docker
-        - install-aws
-      # ???
-
-
-    - name: Rotate Docker logs
-      tags: install-docker
+        - configure-docker
+      synchronize:
+        src: '{{ inventory_dir }}/credentials/docker/'
+        dest: /etc/systemd/system/docker.service.d/
+        existing_only: false
+        private_key: ~/.ssh/id_rsa
+    - name: Update systemd
+      tags:
+        - install-docker
+        - configure-docker
+      systemd:
+        daemon_reload: yes
+    - name: Configure Docker
+      tags:
+        - install-docker
+        - configure-docker
       copy:
-        src: '{{ inventory_dir }}/common/files/docker/daemon.json'
+        src: '{{ inventory_dir }}/roles/common/files/docker/daemon.json'
         dest: /etc/docker/daemon.json
     - name: Restart Docker daemon
       tags:
         - install-docker
+        - configure-docker
       service:
         name: docker
         state: restarted

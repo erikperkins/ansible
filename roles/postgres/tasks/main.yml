@@ -47,6 +47,11 @@
       - postgres:/var/lib/postgresql/data/
     ports:
       - 5432:5432
+    log_driver: awslogs
+    log_options:
+      awslogs-region: us-west-2
+      awslogs-group: datapunnet
+      awslogs-stream: postgres
 
 - name: Stop PostgreSQL container
   tags:

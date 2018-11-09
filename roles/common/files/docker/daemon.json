@@ -2,7 +2,6 @@
   "log-driver": "awslogs",
   "log-opts": {
     "awslogs-region": "us-west-2",
-    "awslogs-group": "datapunnet",
-    "awslogs-datetime-format": "[%Y-%m-%dT%H:%M:%S+00:00]"
+    "awslogs-group": "datapunnet"
   }
 }

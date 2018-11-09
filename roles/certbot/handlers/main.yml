@@ -44,6 +44,11 @@
       - /home/ubuntu/certbot/html/:/usr/share/nginx/html
       - /home/ubuntu/certbot/conf.d/:/etc/nginx/conf.d/
       - /home/ubuntu/certbot/nginx.conf:/etc/nginx/nginx.conf
+    log_driver: awslogs
+    log_options:
+      awslogs-region: us-west-2
+      awslogs-group: datapunnet
+      awslogs-stream: certbot
   listen: "start certbot nginx"
   # notify: "certbot staging verification"
   notify: "certbot production verification"
@@ -57,6 +62,11 @@
       - certbot-var:/var/lib/letsencrypt
       - /home/ubuntu/certbot/html/:/data/letsencrypt
       - /home/ubuntu/certbot/log/:/var/log/letsencrypt
+    log_driver: awslogs
+    log_options:
+      awslogs-region: us-west-2
+      awslogs-group: datapunnet
+      awslogs-stream: certbot
     command: >
       certonly --webroot
       --register-unsafely-without-email
@@ -76,6 +86,11 @@
       - certbot-var:/var/lib/letsencrypt
       - /home/ubuntu/certbot/html/:/data/letsencrypt
       - /home/ubuntu/certbot/log/:/var/log/letsencrypt
+    log_driver: awslogs
+    log_options:
+      awslogs-region: us-west-2
+      awslogs-group: datapunnet
+      awslogs-stream: certbot
     command: >
       certonly --webroot
       --email erik.andrew.perkins@gmail.com

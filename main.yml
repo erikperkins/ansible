@@ -4,17 +4,6 @@
   roles:
     - common
 
-- hosts: main
-  roles:
-    - bayberry
-    - cloudberry
-    - nginx
-    - certbot
-
-- hosts: mnist
-  roles:
-    - blueberry
-
 - hosts: storage
   roles:
     - mongo
@@ -22,6 +11,17 @@
     - rabbitmq
     - redis
 
+- hosts: mnist
+  roles:
+    - blueberry
+
 - hosts: timeseries
   roles:
     - cranberry
+
+- hosts: main
+  roles:
+    - bayberry
+    - cloudberry
+    - nginx
+    - certbot
