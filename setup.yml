@@ -40,27 +40,33 @@
     - name: Add Docker group
       tags:
         - install-docker
-        - add-docker-group
       group:
         name: docker
         state: present
     - name: Add user to Docker group
       tags:
         - install-docker
-        - add-docker-group
       user:
         name: ubuntu
         groups: docker
         state: present
+
+
+    - name: Install AWS agent
+      tags:
+        - install-docker
+        - install-aws
+      # ???
+
+
     - name: Rotate Docker logs
       tags: install-docker
       copy:
-        src: '{{ inventory_dir }}/config/docker/daemon.json'
+        src: '{{ inventory_dir }}/common/files/docker/daemon.json'
         dest: /etc/docker/daemon.json
     - name: Restart Docker daemon
       tags:
         - install-docker
-        - add-docker-group
       service:
         name: docker
         state: restarted
