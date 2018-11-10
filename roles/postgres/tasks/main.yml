@@ -41,7 +41,7 @@
     name: postgres
     image: postgres:11
     env:
-      POSTGRES_PASSWORD: "{{ lookup('env', 'POSTGRES_PASSWORD') }}"
+      POSTGRES_PASSWORD: "{{ postgres_password }}"
     volumes:
       - /home/ubuntu/postgres/docker-entrypoint-initdb.d/:/docker-entrypoint-initdb.d/
       - postgres:/var/lib/postgresql/data/
