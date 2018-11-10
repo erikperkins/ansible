@@ -1,27 +1,6 @@
-[main]
-main.datapun.net
-
-[main:vars]
-ansible_user=ubuntu
-ansible_ssh_private_key_file={{ inventory_dir }}/keys/main.datapun.net.pem
-
-[storage]
-storage.datapun.net
-
-[storage:vars]
-ansible_user=ubuntu
-ansible_ssh_private_key_file={{ inventory_dir }}/keys/storage.datapun.net.pem
-
-[mnist]
-mnist.datapun.net
-
-[mnist:vars]
-ansible_user=ubuntu
-ansible_ssh_private_key_file={{ inventory_dir }}/keys/mnist.datapun.net.pem
-
-[timeseries]
-timeseries.datapun.net
-
-[timeseries:vars]
-ansible_user=ubuntu
-ansible_ssh_private_key_file={{ inventory_dir }}/keys/timeseries.datapun.net.pem
+ungrouped:
+  hosts:
+    main.datapun.net:
+    mnist.datapun.net:
+    storage.datapun.net:
+    timeseries.datapun.net:

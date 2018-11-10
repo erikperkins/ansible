@@ -21,3 +21,28 @@ service, e.g. deploying the Nginx configuration, do
 ```
 $ ansible-playbook -i hosts -t configure-nginx main.yml
 ```
+
+## Vault
+Uncomment the following line to `/etc/ansible/ansible.cfg` to automatically load
+the vault password from the plaintext file `.ansible_vault`
+```
+vault_password_file = ~/.ansible/vault
+```
+Edit encrypted vault files with
+```
+$ ansible-vault edit secrets.yml
+```
+If the location of the vault password file has not been specified in
+`ansible.cfg`, use the `--vault-password-file=/path/to/password/file` flag with
+`ansible-vault`.
+
+Unencrypted `.pem` files for remote hosts must be manually added to the local
+`ssh` configuration with e.g.
+```
+$ ssh-add keys/storage.datapun.net.pem
+```
+Once this is done, the keys can be encrypted with `ansible-vault`
+```
+$ ansible-vault encrypt keys/main.datapun.net.pem
+```
+The keys can also be decrypted with `ansible-vault decrypt`.

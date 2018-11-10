@@ -18,31 +18,37 @@
       tags: install-docker
       apt:
         update_cache: yes
+
     - name: Install Docker
       tags: install-docker
       apt:
         name: docker.io
         state: present
+
     - name: Install pip
       tags: install-docker
       apt:
         name: python-pip
         state: present
+
     - name: Install virtualenv
       tags: install-docker
       apt:
         name: virtualenv
         state: present
+
     - name: Pip install docker
       tags: install-docker
       pip:
         name: docker
+
     - name: Add Docker group
       tags:
         - install-docker
       group:
         name: docker
         state: present
+
     - name: Add user to Docker group
       tags:
         - install-docker
@@ -50,6 +56,7 @@
         name: ubuntu
         groups: docker
         state: present
+
     - name: Push AWS credentials
       tags:
         - install-docker
@@ -59,12 +66,14 @@
         dest: /etc/systemd/system/docker.service.d/
         existing_only: false
         private_key: ~/.ssh/id_rsa
+
     - name: Update systemd
       tags:
         - install-docker
         - configure-docker
       systemd:
         daemon_reload: yes
+
     - name: Configure Docker
       tags:
         - install-docker
@@ -72,6 +81,7 @@
       copy:
         src: '{{ inventory_dir }}/roles/common/files/docker/daemon.json'
         dest: /etc/docker/daemon.json
+
     - name: Restart Docker daemon
       tags:
         - install-docker

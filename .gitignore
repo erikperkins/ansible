@@ -1,4 +1,3 @@
 *.retry
-aws/*
 credentials/*
 keys/*

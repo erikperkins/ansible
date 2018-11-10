@@ -4,22 +4,22 @@
   roles:
     - common
 
-- hosts: storage
+- hosts: storage.datapun.net
   roles:
     - mongo
     - postgres
     - rabbitmq
     - redis
 
-- hosts: mnist
+- hosts: mnist.datapun.net
   roles:
     - blueberry
 
-- hosts: timeseries
+- hosts: timeseries.datapun.net
   roles:
     - cranberry
 
-- hosts: main
+- hosts: main.datapun.net
   roles:
     - bayberry
     - cloudberry
