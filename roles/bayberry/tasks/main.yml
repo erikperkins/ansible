@@ -17,33 +17,11 @@
   tags:
     - start-system
     - start-bayberry
-  docker_container:
-    name: bayberry
-    image: erikperkins/bayberry
-    entrypoint: /bayberry/entrypoint.sh
-    command: mix phx.server
-    env:
-      MIX_ENV: prod
-      BAYBERRY_SECRET_KEY_BASE: "{{ lookup('env', 'BAYBERRY_SECRET_KEY_BASE') }}"
-      BAYBERRY_USERNAME: "{{ lookup('env', 'BAYBERRY_USERNAME') }}"
-      BAYBERRY_PASSWORD: "{{ lookup('env', 'BAYBERRY_PASSWORD') }}"
-      BAYBERRY_DATABASE: "{{ lookup('env', 'BAYBERRY_DATABASE') }}"
-      TWITTER_CONSUMER_KEY: "{{ lookup('env', 'TWITTER_CONSUMER_KEY') }}"
-      TWITTER_CONSUMER_SECRET: "{{ lookup('env', 'TWITTER_CONSUMER_SECRET') }}"
-      TWITTER_ACCESS_TOKEN: "{{ lookup('env', 'TWITTER_ACCESS_TOKEN') }}"
-      TWITTER_ACCESS_SECRET: "{{ lookup('env', 'TWITTER_ACCESS_SECRET') }}"
-    restart_policy: on-failure
-    volumes:
-      - assets:/bayberry/priv/static/
-    ports:
-      - 1024:80
-    log_driver: awslogs
-    log_options:
-      awslogs-region: us-west-2
-      awslogs-group: datapunnet
-      awslogs-stream: bayberry
+  command: /bin/true
+  delegate_to: 127.0.0.1
+  notify: "start bayberry container"
 
-- name: Stop bayberry app container
+- name: Stop bayberry container
   tags:
     - stop-system
     - stop-bayberry

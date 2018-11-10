@@ -22,6 +22,6 @@
 - hosts: main.datapun.net
   roles:
     - bayberry
+    - certbot
     - cloudberry
     - nginx
-    - certbot
