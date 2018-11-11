@@ -1,3 +1,10 @@
+- name: Stop production Nginx
+  docker_container:
+    name: nginx
+    state: absent
+  listen: "stop production nginx"
+  notify: "reconfigure production nginx"
+
 - name: Configure production Nginx
   synchronize:
     src: '{{ inventory_dir }}/roles/nginx/files/'
@@ -5,12 +12,17 @@
     existing_only: false
     private_key: ~/.ssh/id_rsa
   listen: "configure production nginx"
+
+- name: Reconfigure production Nginx
+  synchronize:
+    src: '{{ inventory_dir }}/roles/nginx/files/'
+    dest: ~/nginx
+    existing_only: false
+    private_key: ~/.ssh/id_rsa
+  listen: "reconfigure production nginx"
   notify: "start production nginx"
 
 - name: Start production Nginx
-  tags:
-    - start-system
-    - start-nginx
   docker_container:
     name: nginx
     image: nginx:1.11.6
@@ -34,9 +46,3 @@
       awslogs-group: datapunnet
       awslogs-stream: nginx
   listen: "start production nginx"
-
-- name: Stop production Nginx
-  docker_container:
-    name: nginx
-    state: absent
-  listen: "stop production nginx"
