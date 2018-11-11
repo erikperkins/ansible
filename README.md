@@ -37,12 +37,21 @@ If the location of the vault password file has not been specified in
 `ansible-vault`.
 
 Unencrypted `.pem` files for remote hosts must be manually added to the local
-`ssh` configuration with e.g.
+`ssh` configuration, ensuring that the keys have the proper permissions
 ```
-$ ssh-add keys/storage.datapun.net.pem
+$ chmod 600 keys/storage.datapun.net.pem
 ```
-Once this is done, the keys can be encrypted with `ansible-vault`
+Copy the unencrypted `.pem` files to the local ~/.ssh, and for each remote host,
+add the following to `~/.ssh/config`
+```
+Host main.datapun.net
+  ForwardAgent yes
+  User ubuntu
+  IdentityFile ~/.ssh/main.datapun.net.pem
+```
+This will make the keys available to `ssh-agent` across local reboots. Once
+this is done, the keys can be encrypted with `ansible-vault`
 ```
 $ ansible-vault encrypt keys/main.datapun.net.pem
 ```
-The keys can also be decrypted with `ansible-vault decrypt`.
+The keys can later be decrypted with `ansible-vault decrypt`.
