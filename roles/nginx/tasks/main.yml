@@ -46,10 +46,10 @@
   delegate_to: 127.0.0.1
   notify: "stop production nginx"
 
-- name: Stop Nginx container
+- name: Reset Nginx container
   tags:
-    - stop-system
-    - stop-nginx
-  docker_container:
-    name: nginx
-    state: absent
+    - reset-system
+    - reset-nginx
+  command: /bin/true
+  delegate_to: 127.0.0.1
+  notify: "stop production nginx"
