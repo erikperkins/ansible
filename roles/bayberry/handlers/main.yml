@@ -7,6 +7,7 @@
 - name: Stop bayberry
   listen: "stop bayberry"
   when: procedure.stdout in ['stop', 'reset', 'destroy']
+  changed_when: true
   notify: "remove bayberry"
   docker_container:
     name: bayberry
@@ -14,7 +15,7 @@
 
 - name: Remove bayberry
   listen: "remove bayberry"
-  when: procedure.stdout in ['remove', 'reset', destroy]
+  when: procedure.stdout in ['remove', 'reset', 'destroy']
   notify: "pull bayberry"
   docker_image:
     name: erikperkins/bayberry
