@@ -2,38 +2,61 @@
   tags:
     - pull-system
     - pull-bayberry
-  docker_image:
-    name: erikperkins/bayberry
+  command: /bin/echo pull
+  register: procedure
+  delegate_to: 127.0.0.1
+  notify: "pull bayberry"
 
 - name: Remove bayberry image
   tags:
-    - remove-system
+    - stop-system
     - remove-bayberry
-  docker_image:
-    name: erikperkins/bayberry
-    state: absent
+  command: /bin/echo remove
+  register: procedure
+  delegate_to: 127.0.0.1
+  notify: "remove bayberry"
 
 - name: Start bayberry container
   tags:
     - start-system
     - start-bayberry
-  command: /bin/true
+  command: /bin/echo start
+  register: procedure
   delegate_to: 127.0.0.1
-  notify: "start bayberry container"
+  notify: "start bayberry"
 
 - name: Stop bayberry container
   tags:
     - stop-system
     - stop-bayberry
-  docker_container:
-    name: bayberry
-    state: absent
+  command: /bin/echo stop
+  register: procedure
+  delegate_to: 127.0.0.1
+  notify: "stop bayberry"
 
-- name: Reset bayberry application
+- name: Create bayberry
   tags:
-    - never
+    - create-system
+    - create-bayberry
+  command: /bin/echo create
+  register: procedure
+  delegate_to: 127.0.0.1
+  notify: "pull bayberry"
+
+- name: Destroy bayberry
+  tags:
+    - destroy-system
+    - detroy-bayberry
+  command: /bin/echo destroy
+  register: procedure
+  delegate_to: 127.0.0.1
+  notify: "stop bayberry"
+
+- name: Reset bayberry container
+  tags:
     - reset-system
     - reset-bayberry
-  command: /bin/true
+  command: /bin/echo reset
+  register: procedure
   delegate_to: 127.0.0.1
-  notify: "push bayberry image"
+  notify: "push bayberry"

@@ -2,54 +2,89 @@
   tags:
     - pull-system
     - pull-nginx
-  docker_image:
-    name: nginx
-    tag: 1.15
+  command: /bin/echo pull
+  register: procedure
+  delegate_to: 127.0.0.1
+  notify: "pull nginx"
 
-- name: Create Nginx volume
+- name: Remove Nginx image
+  tags:
+    - stop-system
+    - remove-nginx
+  command: /bin/echo remove
+  register: procedure
+  delegate_to: 127.0.0.1
+  notify: "remove nginx"
+
+- name: Persist Nginx volume
   tags:
     - pull-system
     - pull-nginx
     - persist-nginx
-  docker_volume:
-    name: assets
+  command: /bin/echo persist
+  register: procedure
+  delegate_to: 127.0.0.1
+  notify: "persist nginx"
 
-- name: Remove Nginx volume
+- name: Clean Nginx volume
   tags:
     - never
     - clean-nginx
-  docker_volume:
-    name: assets
-    state: absent
-
-- name: Configure Nginx
-  tags:
-    - configure-system
-    - configure-nginx
-  command: /bin/true
+  command: /bin/echo clean
+  register: procedure
   delegate_to: 127.0.0.1
-  notify: "configure production nginx"
+  notify: "clean nginx"
 
 - name: Start Nginx container
   tags:
     - start-system
     - start-nginx
-  command: /bin/true
+  command: /bin/echo start
+  register: procedure
   delegate_to: 127.0.0.1
-  notify: "start production nginx"
+  notify: "start nginx"
 
 - name: Stop Nginx container
   tags:
     - stop-system
     - stop-nginx
-  command: /bin/true
+  command: /bin/echo stop
+  register: procedure
   delegate_to: 127.0.0.1
-  notify: "stop production nginx"
+  notify: "stop nginx"
+
+- name: Configure Nginx
+  tags:
+    - configure-system
+    - configure-nginx
+  command: /bin/echo configure
+  register: procedure
+  delegate_to: 127.0.0.1
+  notify: "configure nginx"
+
+- name: Create Nginx
+  tags:
+    - create-system
+    - create-nginx
+  command: /bin/echo create
+  register: procedure
+  delegate_to: 127.0.0.1
+  notify: "pull nginx"
+
+- name: Destroy Nginx
+  tags:
+    - destroy-system
+    - detroy-nginx
+  command: /bin/echo destroy
+  register: procedure
+  delegate_to: 127.0.0.1
+  notify: "stop nginx"
 
 - name: Reset Nginx container
   tags:
     - reset-system
     - reset-nginx
-  command: /bin/true
+  command: /bin/echo reset
+  register: procedure
   delegate_to: 127.0.0.1
-  notify: "stop production nginx"
+  notify: "stop nginx"

@@ -1,28 +1,58 @@
-- name: Stop production Nginx
+- name: Stop Nginx
+  listen: "stop nginx"
+  when: procedure.stdout in ['stop', 'reset', 'destroy']
+  notify:
+    - "configure nginx"
+    - "clean nginx"
+    - "remove nginx"
   docker_container:
     name: nginx
     state: absent
-  listen: "stop production nginx"
-  notify: "reconfigure production nginx"
 
-- name: Configure production Nginx
+- name: Pull Nginx
+  listen: "pull nginx"
+  when: procedure.stdout in ['pull', 'create']
+  notify:
+    - "persist nginx"
+    - "configure nginx"
+  docker_image:
+    name: nginx
+    tag: 1.15
+
+- name: Persist Nginx
+  listen: "persist nginx"
+  docker_volume:
+    name: assets
+
+- name: Configure Nginx
+  listen: "configure nginx"
+  when: procedure.stdout in ['configure', 'create', 'reset']
+  changed_when: true
+  notify: "start nginx"
   synchronize:
     src: '{{ inventory_dir }}/roles/nginx/files/'
     dest: ~/nginx
     existing_only: false
     private_key: ~/.ssh/id_rsa
-  listen: "configure production nginx"
 
-- name: Reconfigure production Nginx
-  synchronize:
-    src: '{{ inventory_dir }}/roles/nginx/files/'
-    dest: ~/nginx
-    existing_only: false
-    private_key: ~/.ssh/id_rsa
-  listen: "reconfigure production nginx"
-  notify: "start production nginx"
+- name: Clean Nginx
+  listen: "clean nginx"
+  when: procedure.stdout in ['clean', 'destroy']
+  docker_volume:
+    name: assets
+    state: absent
 
-- name: Start production Nginx
+- name: Remove Nginx
+  listen: "remove nginx"
+  when: procedure.stdout in ['remove', 'destroy']
+  docker_image:
+    name: nginx
+    tag: 1.15
+    state: absent
+
+- name: Start Nginx
+  listen: "start nginx"
+  when: procedure.stdout in ['start', 'create', 'reset']
   docker_container:
     name: nginx
     image: nginx:1.11.6
@@ -45,4 +75,3 @@
       awslogs-region: us-west-2
       awslogs-group: datapunnet
       awslogs-stream: nginx
-  listen: "start production nginx"
