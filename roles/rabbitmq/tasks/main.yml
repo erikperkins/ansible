@@ -6,6 +6,22 @@
     name: rabbitmq
     tag: 3.7-management
 
+- name: Create RabbitMQ volume
+  tags:
+    - persist-system
+    - persist-rabbitmq
+  docker_volume:
+    name: rabbitmq
+
+- name: Remove RabbitMQ volume
+  tags:
+    - never
+    - clean-system
+    - clean-rabbitmq
+  docker_volume:
+    name: rabbitmq
+    state: absent
+
 - name: Start RabbitMQ container
   tags:
     - start-system
@@ -13,6 +29,8 @@
   docker_container:
     name: rabbitmq
     image: rabbitmq:3.7-management
+    memory: 128MB
+    restart_policy: always
     ports:
       - 5672:5672
       - 15672:15672
@@ -21,6 +39,8 @@
       awslogs-region: us-west-2
       awslogs-group: datapunnet
       awslogs-stream: rabbitmq
+    volumes:
+      - rabbitmq:/var/lib/rabbitmq/
 
 - name: Stop RabbitMQ container
   tags:
@@ -28,4 +48,4 @@
     - stop-rabbitmq
   docker_container:
     name: rabbitmq
-    state: absent
+    state: stopped

@@ -8,15 +8,14 @@
 
 - name: Create MongoDB volume
   tags:
-    - pull-system
-    - pull-mongo
+    - persist-system
+    - persist-mongo
   docker_volume:
     name: mongo
 
 - name: Remove MongoDB volume
   tags:
     - never
-    - clean-system
     - clean-mongo
   docker_volume:
     name: mongo
@@ -38,9 +37,10 @@
   docker_container:
     name: mongo
     image: mongo:4.1
+    restart_policy: on-failure
+    memory: 128MB
     ports:
       - 27017:27017
-    restart_policy: on-failure
     volumes:
       - mongo:/data/db
     log_driver: awslogs
