@@ -1,30 +1,36 @@
-- name: Push bayberry image for reset
+- name: Push bayberry image
   command: docker push erikperkins/bayberry
   delegate_to: 127.0.0.1
-  listen: "push bayberry image"
-  notify: "remove bayberry container"
+  listen: "push bayberry"
+  notify: "stop bayberry"
 
-- name: Remove bayberry container for reset
+- name: Stop bayberry
+  listen: "stop bayberry"
+  when: procedure.stdout in ['stop', 'reset', 'destroy']
+  notify: "remove bayberry"
   docker_container:
     name: bayberry
     state: absent
-  listen: "remove bayberry container"
-  notify: "remove bayberry image"
 
-- name: Remove bayberry image for reset
+- name: Remove bayberry
+  listen: "remove bayberry"
+  when: procedure.stdout in ['remove', 'reset', destroy]
+  notify: "pull bayberry"
   docker_image:
     name: erikperkins/bayberry
     state: absent
-  listen: "remove bayberry image"
-  notify: "pull bayberry image"
 
-- name: Pull bayberry image for reset
+- name: Pull bayberry image
+  listen: "pull bayberry"
+  when: procedure.stdout in ['pull', 'create', 'reset']
+  notify:
+    - "start bayberry"
   docker_image:
     name: erikperkins/bayberry
-  listen: "pull bayberry image"
-  notify: "start bayberry container"
 
-- name: Start bayberry container for reset
+- name: Start bayberry
+  listen: "start bayberry"
+  when: procedure.stdout in ['start', 'create', 'reset']
   docker_container:
     name: bayberry
     image: erikperkins/bayberry
@@ -51,4 +57,3 @@
       awslogs-region: us-west-2
       awslogs-group: datapunnet
       awslogs-stream: bayberry
-  listen: "start bayberry container"
