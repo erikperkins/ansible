@@ -1,0 +1,33 @@
+- name: Pull blackberry
+  listen: "pull blackberry"
+  docker_image:
+    name: jupyter/scipy-notebook
+    tag: latest
+
+- name: Remove blackberry
+  listen: "remove blackberry"
+  docker_image:
+    name: jupyter/scipy-notebook
+    state: absent
+
+- name: Start blackberry
+  listen: "start blackberry"
+  docker_container:
+    name: blackberry
+    image: jupyter/scipy-notebook
+    command: >
+      start-notebook.sh
+      --NotebookApp.password='sha1:b6625a26b075:2dfac609cf108f80a810fcf599adf285ac925645'
+    ports:
+      - 8888:8888
+    log_driver: awslogs
+    log_options:
+      awslogs-region: us-west-2
+      awslogs-group: datapunnet
+      awslogs-stream: blackberry
+
+- name: Stop blackberry
+  listen: "stop blackberry"
+  docker_container:
+    name: blackberry
+    state: absent
