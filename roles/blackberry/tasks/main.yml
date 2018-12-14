@@ -1,0 +1,35 @@
+- name: Pull blackberry image
+  tags:
+    - pull-system
+    - pull-blackberry
+  command: /bin/echo pull
+  register: procedure
+  delegate_to: 127.0.0.1
+  notify: "pull blackberry"
+
+- name: Remove blackberry image
+  tags:
+    - remove-system
+    - remove-blackberry
+  command: /bin/echo remove
+  register: procedure
+  delegate_to: 127.0.0.1
+  notify: "remove blackberry"
+
+- name: Start blackberry container
+  tags:
+    - start-system
+    - start-blackberry
+  command: /bin/echo start
+  register: procedure
+  delegate_to: 127.0.0.1
+  notify: "start blackberry"
+
+- name: Stop blackberry container
+  tags:
+    - stop-system
+    - stop-blackberry
+  command: /bin/echo stop
+  register: procedure
+  delegate_to: 127.0.0.1
+  notify: "stop blackberry"
