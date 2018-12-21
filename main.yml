@@ -20,6 +20,7 @@
 
 - hosts: timeseries.datapun.net
   roles:
+    - blackberry
     - cranberry
 
 - hosts: main.datapun.net
