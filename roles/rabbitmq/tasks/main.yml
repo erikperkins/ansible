@@ -29,7 +29,6 @@
   docker_container:
     name: rabbitmq
     image: rabbitmq:3.7-management
-    memory: 128MB
     restart_policy: always
     ports:
       - 5672:5672
@@ -48,4 +47,4 @@
     - stop-rabbitmq
   docker_container:
     name: rabbitmq
-    state: stopped
+    state: absent
