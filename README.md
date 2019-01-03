@@ -55,3 +55,6 @@ this is done, the keys can be encrypted with `ansible-vault`
 $ ansible-vault encrypt keys/main.datapun.net.pem
 ```
 The keys can later be decrypted with `ansible-vault decrypt`.
+
+## AWS CloudWatch Logging
+The "Push AWS credentials" task in `setup.yml` will inject AWS credentials required for the AWS log driver into each host. Note that the credentials are kept encrypted with `ansible-vault`, and must be decrypted temporarily to push to each host.

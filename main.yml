@@ -6,7 +6,6 @@
 
 - hosts: storage.datapun.net
   roles:
-    - mongo
     - postgres
     - rabbitmq
     - redis
@@ -14,7 +13,10 @@
 - hosts: mnist.datapun.net
   roles:
     - blueberry
-    - blackberry
+
+- hosts: nlp.datapun.net
+  roles:
+    - cloudberry
 
 - hosts: timeseries.datapun.net
   roles:
@@ -24,5 +26,4 @@
   roles:
     - bayberry
     - certbot
-    - cloudberry
     - nginx

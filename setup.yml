@@ -1,6 +1,9 @@
 ---
 - hosts: all
   gather_facts: false
+  remote_user: ubuntu
+  become: yes
+  become_method: sudo
   tasks:
     - name: Install Python
       tags:
