@@ -10,7 +10,7 @@
     name: certbot/certbot
   listen: "pull certbot image"
   notify:
-    - "stop production nginx"
+    - "stop nginx"
     - "create certbot volumes"
     - "configure certbot nginx"
     - "start certbot nginx"
@@ -132,4 +132,4 @@
     name: nginx-certbot
     state: absent
   listen: "stop certbot nginx"
-  notify: "configure production nginx"
+  notify: "configure nginx"

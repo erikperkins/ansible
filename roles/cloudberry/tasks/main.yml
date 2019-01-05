@@ -20,12 +20,13 @@
   docker_container:
     name: cloudberry
     image: erikperkins/cloudberry
-    memory: 256MB
     restart_policy: on-failure
     hostname: cloudberry
     env:
       CLOUDBERRY_ENV: production
-    ports: 1025:80
+      AWS_ACCESS_KEY_ID: "{{ aws_access_key_id }}"
+      AWS_SECRET_ACCESS_KEY: "{{ aws_secret_access_key }}"
+    ports: 80:80
     log_driver: awslogs
     log_options:
       awslogs-region: us-west-2

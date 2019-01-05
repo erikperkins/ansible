@@ -2,5 +2,6 @@ ungrouped:
   hosts:
     main.datapun.net:
     mnist.datapun.net:
+    nlp.datapun.net:
     storage.datapun.net:
     timeseries.datapun.net:
