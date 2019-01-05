@@ -58,6 +58,7 @@
       TWITTER_ACCESS_TOKEN: "{{ twitter_access_token }}"
       TWITTER_ACCESS_SECRET: "{{ twitter_access_secret }}"
       TWITTER_FEED: "{{ twitter_feed }}"
+      TWITTER_TIMEOUT: "{{ twitter_timeout }}"
     restart_policy: on-failure
     volumes:
       - assets:/bayberry/priv/static/
