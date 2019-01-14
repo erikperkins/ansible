@@ -5,6 +5,14 @@
   docker_image:
     name: erikperkins/blueberry
 
+- name: Remove blueberry image
+  tags:
+    - remove-system
+    - remove-blueberry
+  docker_image:
+    name: erikperkins/blueberry
+    state: absent
+
 - name: Start blueberry container
   tags:
     - start-system
