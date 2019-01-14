@@ -5,3 +5,27 @@
   command: /bin/true
   delegate_to: 127.0.0.1
   notify: "remove certbot image"
+
+- name: Generate DH param
+  tags:
+    - never
+    - generate-dh
+  command: /bin/true
+  delegate_to: 127.0.0.1
+  notify: "generate dh param"
+
+- name: Create Certbot cron job
+  tags:
+    - never
+    - certbot-cron
+  command: /bin/true
+  delegate_to: 127.0.0.1
+  notify: "create certbot cron job"
+
+- name: Stop Certbot Nginx
+  tags:
+    - never
+    - stop-certbot
+  command: /bin/true
+  delegate_to: 127.0.0.1
+  notify: "stop certbot nginx"

@@ -3,12 +3,14 @@
     name: certbot/certbot
     state: absent
   listen: "remove certbot image"
+  changed_when: true
   notify: "pull certbot image"
 
 - name: Pull Certbot image
   docker_image:
     name: certbot/certbot
   listen: "pull certbot image"
+  changed_when: true
   notify:
     - "stop nginx"
     - "create certbot volumes"
@@ -26,6 +28,8 @@
   listen: "create certbot volumes"
 
 - name: Configure Certbot Nginx
+  become: yes
+  become_method: sudo
   synchronize:
     src: '{{ inventory_dir }}/roles/certbot/files/'
     dest: ~/certbot

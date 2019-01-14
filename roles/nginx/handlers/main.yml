@@ -25,6 +25,8 @@
     name: assets
 
 - name: Configure Nginx
+  become: yes
+  become_method: sudo
   listen: "configure nginx"
   when: procedure.stdout in ['configure', 'create', 'reset']
   changed_when: true
