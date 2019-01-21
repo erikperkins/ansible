@@ -30,7 +30,7 @@
     image: redis:latest
     memory: 128MB
     restart_policy: on-failure
-    command: redis-server --appendonly yes
+    command: "redis-server --appendonly yes --requirepass {{ redis_password }}"
     ports:
       - 6379:6379
     volumes:
