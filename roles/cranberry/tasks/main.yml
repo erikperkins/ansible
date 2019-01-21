@@ -5,6 +5,14 @@
   docker_image:
     name: erikperkins/cranberry
 
+- name: Remove cranberry image
+  tags:
+    - remove-system
+    - remove-cranberry
+  docker_image:
+    name: erikperkins/cranberry
+    state: absent
+
 - name: Start cranberry container
   tags:
     - start-system
