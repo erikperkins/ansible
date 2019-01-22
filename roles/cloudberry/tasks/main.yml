@@ -26,6 +26,8 @@
       CLOUDBERRY_ENV: production
       AWS_ACCESS_KEY_ID: "{{ aws_access_key_id }}"
       AWS_SECRET_ACCESS_KEY: "{{ aws_secret_access_key }}"
+      CLOUDBERRY_USERNAME: "{{ cloudberry_username }}"
+      CLOUDBERRY_PASSWORD: "{{ cloudberry_password }}"
     ports: 80:80
     log_driver: awslogs
     log_options:
