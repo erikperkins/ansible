@@ -1,2 +1,4 @@
-roles/nginx/files/html/* linguist-detectable=false
-roles/certbot/files/html/* linguist-detectable=false
+roles/certbot/files/* linguist-detectable=false
+roles/common/files/* linguist-detectable=false
+roles/nginx/files/* linguist-detectable=false
+roles/postgres/files/* linguist-detectable=false
