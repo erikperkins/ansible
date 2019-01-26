@@ -1,0 +1,2 @@
+roles/nginx/files/html/* linguist-detectable=false
+roles/certbot/files/html/* linguist-detectable=false
