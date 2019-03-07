@@ -13,6 +13,10 @@
     name: cranberry
     image: erikperkins/cranberry
     command: .cabal-sandbox/bin/cranberry -p 80
+    env:
+      REDIS_HOST: "{{ redis_host }}"
+      REDIS_DATABASE: "{{ redis_database }}"
+      REDIS_PASSWORD: "{{ redis_password }}"
     restart_policy: on-failure
     ports:
       - 80:80
