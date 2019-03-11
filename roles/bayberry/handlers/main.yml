@@ -47,6 +47,7 @@
       DATAPUNNET_ADMIN_PASSWORD: "{{ datapunnet_admin_password }}"
       POSTGRES_HOST: "{{ postgres_host }}"
       REDIS_HOST: "{{ redis_host }}"
+      REDIS_DATABASE: "{{ redis_database }}"
       REDIS_PASSWORD: "{{ redis_password }}"
       RABBITMQ_HOST: "{{ rabbitmq_host }}"
       RABBITMQ_USERNAME: "{{ rabbitmq_username }}"
@@ -54,12 +55,6 @@
       MNIST_ENDPOINT: "{{ mnist_endpoint }}"
       LDA_ENDPOINT: "{{ lda_endpoint }}"
       TIMESERIES_ENDPOINT: "{{ timeseries_endpoint }}"
-      TWITTER_CONSUMER_KEY: "{{ twitter_consumer_key }}"
-      TWITTER_CONSUMER_SECRET: "{{ twitter_consumer_secret }}"
-      TWITTER_ACCESS_TOKEN: "{{ twitter_access_token }}"
-      TWITTER_ACCESS_SECRET: "{{ twitter_access_secret }}"
-      TWITTER_FEED: "{{ twitter_feed }}"
-      TWITTER_TIMEOUT: "{{ twitter_timeout }}"
     restart_policy: on-failure
     volumes:
       - assets:/bayberry/priv/static/
