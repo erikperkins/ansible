@@ -28,6 +28,7 @@
       RABBITMQ_HOST: "{{ rabbitmq_host }}"
       RABBITMQ_USERNAME: "{{ rabbitmq_username }}"
       RABBITMQ_PASSWORD: "{{ rabbitmq_password }}"
+      RABBITMQ_MESSAGE_TTL: "{{ rabbitmq_message_ttl }}"
       TWITTER_ACCESS_TOKEN: "{{ twitter_access_token }}"
       TWITTER_ACCESS_SECRET: "{{ twitter_access_secret }}"
       TWITTER_CONSUMER_KEY: "{{ twitter_consumer_key }}"

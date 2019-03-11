@@ -52,6 +52,7 @@
       RABBITMQ_HOST: "{{ rabbitmq_host }}"
       RABBITMQ_USERNAME: "{{ rabbitmq_username }}"
       RABBITMQ_PASSWORD: "{{ rabbitmq_password }}"
+      RABBITMQ_MESSAGE_TTL: "{{ rabbitmq_message_ttl }}"
       MNIST_ENDPOINT: "{{ mnist_endpoint }}"
       LDA_ENDPOINT: "{{ lda_endpoint }}"
       TIMESERIES_ENDPOINT: "{{ timeseries_endpoint }}"
