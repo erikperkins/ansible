@@ -40,7 +40,7 @@
   docker_container:
     name: postgres
     image: postgres:11.2
-    memory: 128MB
+    memory: 256MB
     restart_policy: on-failure
     env:
       POSTGRES_PASSWORD: "{{ postgres_password }}"
