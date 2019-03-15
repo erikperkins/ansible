@@ -12,7 +12,16 @@
   docker_container:
     name: blueberry
     image: erikperkins/blueberry
-    command: uwsgi --ini uwsgi.ini
+    command: >
+      uwsgi --http-socket ":80"
+        --wsgi-file "wsgi.py"
+        --module "blueberry.main"
+        --callable app
+        --master
+        --enable-threads
+        --processes 2
+        --threads 1
+        --die-on-term
     restart_policy: on-failure
     ports:
       - 80:80
