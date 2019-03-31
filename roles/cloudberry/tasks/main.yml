@@ -26,8 +26,10 @@
       CLOUDBERRY_ENV: production
       AWS_ACCESS_KEY_ID: "{{ aws_access_key_id }}"
       AWS_SECRET_ACCESS_KEY: "{{ aws_secret_access_key }}"
+      POSTGRES_HOST: "{{ postgres_host }}"
       CLOUDBERRY_USERNAME: "{{ cloudberry_username }}"
       CLOUDBERRY_PASSWORD: "{{ cloudberry_password }}"
+    network_mode: host
     ports: 80:80
     log_driver: awslogs
     log_options:

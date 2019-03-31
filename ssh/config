@@ -1,0 +1,28 @@
+Host main.datapun.net
+  ForwardAgent yes
+  User ubuntu
+  IdentityFile ~/.ssh/main.datapun.net.pem
+
+Host 172.31.5.52
+  ProxyJump main.datapun.net
+  IdentityFile ~/.ssh/storage.datapun.net.pem
+  User ubuntu
+  ForwardAgent yes
+
+Host 172.31.3.154
+  ProxyJump main.datapun.net
+  IdentityFile ~/.ssh/mnist.datapun.net.pem
+  User ubuntu
+  ForwardAgent yes
+
+Host 172.31.2.57
+  ProxyJump main.datapun.net
+  IdentityFile ~/.ssh/nlp.datapun.net.pem
+  User ubuntu
+  ForwardAgent yes
+
+Host 172.31.7.82
+  ProxyJump main.datapun.net
+  IdentityFile ~/.ssh/timeseries.datapun.net.pem
+  User ubuntu
+  ForwardAgent yes

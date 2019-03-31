@@ -9,6 +9,13 @@ AWS host before any other task is performed
 $ ansible-playbook -i hosts setup.yml
 ```
 
+## Proxy
+Only `main.datapun.net` accepts incoming connections from the internet; other
+hosts are confined to an Amazon Virtual Private Cloud. In order for Ansible
+to access these hosts, `main.datapun.net` must be used as a proxy. The local
+SSH daemon must be configured to do this; the necessary configuration can be
+found in `ssh/config`.
+
 ## Inventory
 The list of hosts is in `/hosts`. This inventory file also lists the
 individual SSH keys for each host. SSH keys should be placed in the `/keys` directory.

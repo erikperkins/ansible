@@ -35,6 +35,7 @@
       TWITTER_CONSUMER_SECRET: "{{ twitter_consumer_secret }}"
       TWITTER_TRACK: "{{ twitter_track }}"
     restart_policy: on-failure
+    network_mode: host
     ports:
       - 80:80
     log_driver: awslogs

@@ -4,26 +4,26 @@
   roles:
     - common
 
-- hosts: storage.datapun.net
+- hosts: storage
   roles:
     - postgres
     - rabbitmq
     - redis
 
-- hosts: mnist.datapun.net
+- hosts: mnist
   roles:
     - blueberry
 
-- hosts: nlp.datapun.net
+- hosts: nlp
   roles:
     - cloudberry
 
-- hosts: timeseries.datapun.net
+- hosts: timeseries
   roles:
     - blackberry
     - cranberry
 
-- hosts: main.datapun.net
+- hosts: main
   roles:
     - bayberry
     - certbot
