@@ -1,28 +1,52 @@
-Host main.datapun.net
-  ForwardAgent yes
-  User ubuntu
-  IdentityFile ~/.ssh/main.datapun.net.pem
+Host *
+  AddressFamily inet
 
-Host 172.31.5.52
-  ProxyJump main.datapun.net
-  IdentityFile ~/.ssh/storage.datapun.net.pem
+Host main main.datapun.net
+  HostName main.datapun.net
+  IdentityFile ~/.ssh/keys/main.datapun.net.pem
   User ubuntu
   ForwardAgent yes
+  ControlMaster auto
+  ControlPath ~/.ssh/sockets/%r@%h:%p
 
-Host 172.31.3.154
+Host storage.datapun.net 172.31.5.52
+  HostName 172.31.5.52
   ProxyJump main.datapun.net
-  IdentityFile ~/.ssh/mnist.datapun.net.pem
+  IdentityFile ~/.ssh/keys/storage.datapun.net.pem
   User ubuntu
   ForwardAgent yes
+  LocalForward 5433 localhost:5432
+  LocalForward 6380 localhost:6379
+  LocalForward 15672 localhost:15672
+  ControlMaster auto
+  ControlPath ~/.ssh/sockets/%r@%h:%p
 
-Host 172.31.2.57
+Host mnist.datapun.net 172.31.3.154
+  HostName 172.31.3.154
   ProxyJump main.datapun.net
-  IdentityFile ~/.ssh/nlp.datapun.net.pem
+  IdentityFile ~/.ssh/keys/mnist.datapun.net.pem
   User ubuntu
   ForwardAgent yes
+  LocalForward 8080 localhost:80
+  ControlMaster auto
+  ControlPath ~/.ssh/sockets/%r@%h:%p
 
-Host 172.31.7.82
+Host nlp.datapun.net 172.31.2.57
+  HostName 172.31.2.57
   ProxyJump main.datapun.net
-  IdentityFile ~/.ssh/timeseries.datapun.net.pem
+  IdentityFile ~/.ssh/keys/nlp.datapun.net.pem
   User ubuntu
   ForwardAgent yes
+  LocalForward 8080 localhost:80
+  ControlMaster auto
+  ControlPath ~/.ssh/sockets/%r@%h:%p
+
+Host timeseries.datapun.net 172.31.7.82
+  HostName 172.31.7.82
+  ProxyJump main.datapun.net
+  IdentityFile ~/.ssh/keys/timeseries.datapun.net.pem
+  User ubuntu
+  ForwardAgent yes
+  LocalForward 8080 localhost:80
+  ControlMaster auto
+  ControlPath ~/.ssh/sockets/%r@%h:%p

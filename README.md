@@ -14,15 +14,27 @@ Only `main.datapun.net` accepts incoming connections from the internet; other
 hosts are confined to an Amazon Virtual Private Cloud. In order for Ansible
 to access these hosts, `main.datapun.net` must be used as a proxy. The local
 SSH daemon must be configured to do this; the necessary configuration can be
-found in `ssh/config`.
+found in `ssh/config`. The ssh configuration contains aliases for the IP
+addresses on the private network.
+
+To access servers on the private network, use ssh local port forwarding. Ports
+from each service running on each server are bound locally via `ssh/config`.
+```
+$ ssh -fN storage.datapun.net
+```
+The `-f` flag starts the ssh tunnel in the background; the sockets are stored
+in `~/.ssh/sockets/` according to `ssh/config`. To stop the tunnel, do
+```
+$ ssh -S ~/.ssh/sockets/ubuntu@main.datapun.net -O exit main.datapun.net
+```
 
 ## Inventory
-The list of hosts is in `/hosts`. This inventory file also lists the
-individual SSH keys for each host. SSH keys should be placed in the `/keys` directory.
+The list of hosts is in `hosts/`. Additional parameters for each host are kept
+in `host_vars`. Encrypted SSH keys are kept in the `ssh/keys/` directory.
 
 ## Tasks
 Tasks are partitioned by service into roles. These roles are organized according
-to which service is deployed on which server in `/main.yml`. Each task has a set
+to which service is deployed on which server in `main.yml`. Each task has a set
 of tags of the form `task-role`. To perform a particular task on a particular
 service, e.g. deploying the Nginx configuration, do
 ```
