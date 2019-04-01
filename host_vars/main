@@ -1,0 +1,4 @@
+---
+ansible_host: main.datapun.net
+ansible_user: ubuntu
+ansible_ssh_private_key_file: "{{ lookup('file', 'ssh/keys/main.datapun.net.pem') }}"
