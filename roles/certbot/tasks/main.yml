@@ -2,7 +2,7 @@
   tags:
     - never
     - setup-certbot
-  command: /bin/true
+  command: /bin/echo secure
   delegate_to: 127.0.0.1
   notify: "remove certbot image"
 

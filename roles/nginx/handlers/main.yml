@@ -1,6 +1,6 @@
 - name: Stop Nginx
   listen: "stop nginx"
-  when: procedure.stdout in ['stop', 'reset', 'destroy']
+  when: procedure.stdout in ['stop', 'reset', 'destroy', 'secure']
   notify:
     - "configure nginx"
     - "clean nginx"
